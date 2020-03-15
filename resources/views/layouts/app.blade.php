@@ -84,7 +84,7 @@
                         <ul style="display: none;">
                             <li><a href="{{route('createSale')}}"><i class="fa fa-cart-plus text-success"></i><span> Sales Dashboard</span></a>
                             </li>
-                            <li><a href="#"><i class="fa fa-envelope-open-o text-success"></i> Invoices</a></li>
+                            <li><a href="{{route('createInvoice')}}"><i class="fa fa-envelope-open-o text-success"></i> Invoices</a></li>
                             <li><a href="#"><i class="fa fa-address-card text-success"></i> Quotations</a></li>
                         </ul>
                     </li>

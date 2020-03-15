@@ -134,4 +134,5 @@ Route::post('/saveLeaveApplication','LeaveApplicationsController@store')->name('
 Route::get('/authoriseLeave/{application}','LeaveApplicationsController@acceptLeave')->name('authoriseLeave');
 Route::get('/rejectLeave/{application}','LeaveApplicationsController@rejectLeave')->name('rejectLeave');
 //Invoice Routes
-Route::get('/invoice','InvoiceController@index')->name('invoice');
+Route::get('/createInvoice','InvoiceController@create')->name('createInvoice');
+Route::post('/saveInvoice','InvoiceController@store')->name('saveInvoice');
