@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card-box">
-                <h4 class="card-title">System Generated Invoices <a href="{{route('createInvoice')}}" class="btn btn-success btn-rounded pull-right"><i class="fa fa-plus"></i> New Invoice</a></h4>
+                <h4 class="card-title">System Generated Quotations <a href="{{route('createQuotation')}}" class="btn btn-success btn-rounded pull-right"><i class="fa fa-plus"></i> New Invoice</a></h4>
                 <table id="client" class="table table-striped table-hover table-condensed">
                     <thead>
                     <tr>
@@ -17,7 +17,7 @@
                         <th>Currency</th>
                         <th>Rate</th>
                         <th>Invoice Amount</th>
-{{--                        <th>Action</th>--}}
+                        {{--                        <th>Action</th>--}}
                     </tr>
                     </thead>
                     <tbody>
@@ -29,14 +29,14 @@
                             <td>{{$invoice->currency}}</td>
                             <td>{{$invoice->rate}}</td>
                             <td>{{$invoice->invoice_amount}}</td>
-{{--                            <td>--}}
-{{--                                <div class="dropdown dropdown-action">--}}
-{{--                                    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>--}}
-{{--                                    <div class="dropdown-menu dropdown-menu-right">--}}
-{{--                                        <a class="dropdown-item" href="/showInvoice/{{$invoice->id}}"><i class="custom-badge status-green fa fa-eye m-r-5">&nbsp; Show</i></a>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </td>--}}
+                            {{--                            <td>--}}
+                            {{--                                <div class="dropdown dropdown-action">--}}
+                            {{--                                    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>--}}
+                            {{--                                    <div class="dropdown-menu dropdown-menu-right">--}}
+                            {{--                                        <a class="dropdown-item" href="/showInvoice/{{$invoice->id}}"><i class="custom-badge status-green fa fa-eye m-r-5">&nbsp; Show</i></a>--}}
+                            {{--                                    </div>--}}
+                            {{--                                </div>--}}
+                            {{--                            </td>--}}
                         </tr>
                     @endforeach
                     </tbody>
@@ -76,15 +76,15 @@
                     },
                     {
                         extend: 'pdfHtml5',
-                        filename: 'Invoices report',
-                        title:'All System Invoice Report',
+                        filename: 'Quotation report',
+                        title:'All System Quotation Report',
                         exportOptions: {
                             columns: [0, 1, 2,3,4,5 ]
                         }
                     },
                     {
                         extend: 'print',
-                        title:'All System Invoices Report',
+                        title:'All System Quotations Report',
                         exportOptions: {
                             columns: [0, 1, 2,3,4,5]
                         }

@@ -137,3 +137,10 @@ Route::get('/rejectLeave/{application}','LeaveApplicationsController@rejectLeave
 //Invoice Routes
 Route::get('/createInvoice','InvoiceController@create')->name('createInvoice');
 Route::post('/saveInvoice','InvoiceController@store')->name('saveInvoice');
+Route::get('/invoices','InvoiceController@index')->name('invoices');
+Route::get('/showInvoice/{invoice}','InvoiceController@show')->name('showInvoice');
+//Quotation Routes
+Route::get('/createQuotation','QuotationController@create')->name('createQuotation');
+Route::post('/saveQuotation','QuotationController@store')->name('saveQuotation');
+Route::get('/quotations','QuotationController@index')->name('quotations');
+Route::get('/showQuotation/{quotation}','QuotationController@show')->name('showQuotation');

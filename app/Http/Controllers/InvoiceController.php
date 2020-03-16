@@ -18,7 +18,8 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        //
+        $invoices=Invoice::all();
+        return view('invoices.index',compact('invoices'));
     }
 
     /**
@@ -80,9 +81,11 @@ class InvoiceController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($invoice)
     {
-        //
+        $InvoiceDetails=Invoice::query()->where('id',$invoice)->with('invoiceLines')->first();
+        $customer=Customer::query()->where('id',$InvoiceDetails->customer_id)->first();
+        return view('invoices.show',compact('InvoiceDetails','customer'));
     }
 
     /**

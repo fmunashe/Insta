@@ -73,13 +73,13 @@
                                 </thead>
                                 <tbody>
                                 @foreach($InvoiceDetails->invoiceLines as $lines)
-                                <tr>
-                                    <td>{{$lines->id}}</td>
-                                    <td>{{$lines->item_description}}</td>
-                                    <td>{{$lines->price}}</td>
-                                    <td>{{$lines->quantity}}</td>
-                                    <td>{{$lines->line_total}}</td>
-                                </tr>
+                                    <tr>
+                                        <td>{{$lines->id}}</td>
+                                        <td>{{$lines->item_description}}</td>
+                                        <td>{{$lines->price}}</td>
+                                        <td>{{$lines->quantity}}</td>
+                                        <td>{{$lines->line_total}}</td>
+                                    </tr>
                                 @endforeach
                                 </tbody>
                             </table>
@@ -109,12 +109,12 @@
                                                     <td class="text-right">{{number_format($InvoiceDetails->invoice_amount,2)}}</td>
                                                 </tr>
                                                 </tbody>
-{{--                                                <tr>--}}
-{{--                                                    <td></td>--}}
-{{--                                                    <td class="text-right">--}}
-{{--                                                        <a class="dropdown-item" href="#" onclick="printInvoice('printable')"><i class="custom-badge status-green fa fa-print m-r-5">&nbsp Print</i></a>--}}
-{{--                                                    </td>--}}
-{{--                                                </tr>--}}
+                                                {{--                                                <tr>--}}
+                                                {{--                                                    <td></td>--}}
+                                                {{--                                                    <td class="text-right">--}}
+                                                {{--                                                        <a class="dropdown-item" href="#" onclick="printInvoice('printable')"><i class="custom-badge status-green fa fa-print m-r-5">&nbsp Print</i></a>--}}
+                                                {{--                                                    </td>--}}
+                                                {{--                                                </tr>--}}
                                             </table>
                                         </div>
                                     </div>
