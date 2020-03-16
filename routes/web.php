@@ -47,6 +47,7 @@ Route::get('/createCurrency','CurrencyController@create')->name('createCurrency'
 Route::post('/saveCurrency','CurrencyController@store')->name('saveCurrency');
 Route::get('/editCurrency/{currency}','CurrencyController@edit')->name('editCurrency');
 Route::get('/deleteCurrency/{currency}','CurrencyController@destroy')->name('deleteCurrency');
+Route::get('/searchCurrency/{currency}','CurrencyController@searchCurrency')->name('searchCurrency');
 //Exchange Rates routes
 Route::get('/rates','ExchangeRateController@index')->name('rates');
 Route::get('/createRate','ExchangeRateController@create')->name('createRate');

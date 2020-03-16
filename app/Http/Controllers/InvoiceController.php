@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Currency;
+use App\Customer;
 use App\Http\Requests\CustomerRequest;
+use App\Invoice;
+use App\InvoiceLines;
 use Illuminate\Http\Request;
 
 class InvoiceController extends Controller
@@ -25,25 +28,56 @@ class InvoiceController extends Controller
      */
     public function create()
     {
-        $currencies=Currency::with('rate')->get();
-        return view('invoices.createInvoice',compact('currencies'));
+        $currencies = Currency::with('rate')->get();
+        return view('invoices.createInvoice', compact('currencies'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(CustomerRequest $request)
     {
-        //
+        $customer = Customer::query()->create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'phone' => $request->input('phone'),
+            'address' => $request->input('address')
+        ]);
+        $invoice = new Invoice();
+        $latestInvoice = Invoice::query()->orderby('created_at', 'DESC')->first();
+        if ($latestInvoice == null) {
+            $invoice->invoive_number = 'INV' . str_pad(1, 7, "0", STR_PAD_LEFT);
+        } else {
+            $invoice->invoice_number = 'INV' . str_pad($latestInvoice->id + 1, 7, "0", STR_PAD_LEFT);
+        }
+        $invoice->customer_id = $customer->id;
+        $invoice->invoice_description = $request->input('Description');
+        $invoice->invoice_amount = $request->input('Amount');
+        $invoice->currency = $request->input('currency');
+        $invoice->rate = $request->input('rate');
+        $invoice->save();
+
+        for ($i = 0; $i < count($request->input('ItemDescription')); $i++) {
+            InvoiceLines::query()->create([
+                'invoice_id' => $invoice->id,
+                'item_description' => $request->ItemDescription[$i],
+                'price' => $request->ItemPrice[$i],
+                'quantity' => $request->ItemQuantity[$i],
+                'line_total' => $request->ItemPrice[$i] * $request->ItemQuantity[$i]
+            ]);
+        }
+        $InvoiceDetails=Invoice::query()->where('id',$invoice->id)->with('invoiceLines')->first();
+//       dd($InvoiceDetails);
+        return view('invoices.show',compact('InvoiceDetails','customer'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -54,7 +88,7 @@ class InvoiceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -65,8 +99,8 @@ class InvoiceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -77,7 +111,7 @@ class InvoiceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
