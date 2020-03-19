@@ -15,6 +15,9 @@ class CreateCreditorsTable extends Migration
     {
         Schema::create('creditors', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name');
+            $table->string('address');
+            $table->string('phone_number');
             $table->timestamps();
         });
     }

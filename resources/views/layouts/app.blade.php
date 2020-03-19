@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset('frontend/assets/img/favi.ico')}}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('frontend/assets/img/logo.png')}}">
     <title>StockMan</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{asset('frontend/assets/css/bootstrap.min.css')}}">
@@ -21,7 +21,7 @@
     <div class="header">
         <div class="header-left">
             <a href="{{route('home')}}" class="logo">
-                <img src="{{asset('frontend/assets/img/chikwereti2.png')}}" width="50" height="50" alt="">&nbsp;&nbsp;&nbsp;
+                <img src="{{asset('frontend/assets/img/logo.png')}}" width="50" height="50" alt="">&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;<span><strong><h2>StockMan</h2></strong></span>
             </a>
         </div>
@@ -73,6 +73,8 @@
                             </li>
                             <li><a href="{{route('rates')}}"><i class="fa fa-exchange text-success"></i> Exchange Rates
                                 </a></li>
+                            <li><a href="{{route('creditors')}}"><i class="fa fa-exchange text-success"></i> Creditors
+                                </a></li>
                             <li><a href="{{route('users')}}"><i class="fa fa-users text-success"></i> Manage Users
                                 </a></li>
                         </ul>
@@ -84,6 +86,9 @@
                         <ul style="display: none;">
                             <li><a href="{{route('createSale')}}"><i class="fa fa-cart-plus text-success"></i><span> Sales Dashboard</span></a>
                             </li>
+                            <li><a href="{{route('createInvoice')}}"><i class="fa fa-envelope-open-o text-success"></i> Invoices</a></li>
+                            <li><a href="#"><i class="fa fa-address-card text-success"></i> Quotations</a></li>
+                            <li><a href="{{route('requisitions')}}"><i class="fa fa-gavel text-success"></i> Requisitions</a></li>
                             <li><a href="{{route('invoices')}}"><i class="fa fa-envelope-open-o text-success"></i> Invoices</a></li>
                             <li><a href="{{route('quotations')}}"><i class="fa fa-address-card text-success"></i> Quotations</a></li>
                         </ul>
@@ -117,10 +122,10 @@
                         <ul style="display: none;">
                             <li><a href="{{route('products')}}"><i class="fa fa-cart-plus text-success"></i><span> Products</span></a>
                             </li>
-                            <li><a href="{{route('orders')}}"><i class="fa fa-balance-scale text-success"></i> Purchase
-                                    Orders </a></li>
+                            <li><a href="{{route('orders')}}"><i class="fa fa-balance-scale text-success"></i> Receive Stock </a></li>
                             <li><a href="{{route('stockTakes')}}"><i class="fa fa-exchange text-success"></i> Stock Take </a>
                             </li>
+                            <li><a href="{{route('assets')}}"><i class="fa fa-cab text-success"></i> Assets</a>
                         </ul>
                     </li>
                     <li class="submenu">

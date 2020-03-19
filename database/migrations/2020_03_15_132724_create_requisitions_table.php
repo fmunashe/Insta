@@ -15,6 +15,14 @@ class CreateRequisitionsTable extends Migration
     {
         Schema::create('requisitions', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('requisition_number');
+            $table->string('amount');
+            $table->string('description');
+            $table->string('status')->default(0);
+            $table->string('processed')->default(0);
+            $table->unsignedBigInteger('vatable')->default(0);
+            $table->string('vat_amount')->default(0);
+            $table->string('total_amount');
             $table->timestamps();
         });
     }

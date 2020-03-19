@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Currency;
-use App\Customer;
 use App\Http\Requests\CustomerRequest;
+use Illuminate\Http\Request;
+use App\Customer;
 use App\Invoice;
 use App\InvoiceLines;
-use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class InvoiceController extends Controller
@@ -19,6 +19,7 @@ class InvoiceController extends Controller
      */
     public function index()
     {
+
         if (session('success_message')) {
             Alert::success('success', session('success_message'))->showConfirmButton('Close', '#0f9b0f');
         } elseif (session('error_message')) {
@@ -35,8 +36,8 @@ class InvoiceController extends Controller
      */
     public function create()
     {
-        $currencies = Currency::with('rate')->get();
-        return view('invoices.createInvoice', compact('currencies'));
+        $currencies=Currency::with('rate')->get();
+        return view('invoices.createInvoice',compact('currencies'));
     }
 
     /**
