@@ -6,11 +6,12 @@ use App\Currency;
 use App\Customer;
 use App\Http\Requests\CustomerRequest;
 use App\Invoice;
-use App\InvoiceLines;
+use App\Quotation;
+use App\QuotationLines;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class InvoiceController extends Controller
+class QuotationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,8 +25,8 @@ class InvoiceController extends Controller
         } elseif (session('error_message')) {
             Alert::error('error', session('error_message'))->showConfirmButton('Close', '#b92b53');
         }
-        $invoices = Invoice::all();
-        return view('invoices.index', compact('invoices'));
+        $quotations = Quotation::all();
+        return view('quotation.index', compact('quotations'));
     }
 
     /**
@@ -36,7 +37,7 @@ class InvoiceController extends Controller
     public function create()
     {
         $currencies = Currency::with('rate')->get();
-        return view('invoices.createInvoice', compact('currencies'));
+        return view('quotation.createQuotation', compact('currencies'));
     }
 
     /**
@@ -53,31 +54,31 @@ class InvoiceController extends Controller
             'phone' => $request->input('phone'),
             'address' => $request->input('address')
         ]);
-        $invoice = new Invoice();
-        $latestInvoice = Invoice::query()->orderby('created_at', 'DESC')->first();
-        if ($latestInvoice == null) {
-            $invoice->invoive_number = 'INV' . str_pad(1, 7, "0", STR_PAD_LEFT);
+        $quotation = new Quotation();
+        $latestQuotation = Quotation::query()->orderby('created_at', 'DESC')->first();
+        if ($latestQuotation == null) {
+            $quotation->quotation_number = 'QT' . str_pad(1, 7, "0", STR_PAD_LEFT);
         } else {
-            $invoice->invoice_number = 'INV' . str_pad($latestInvoice->id + 1, 7, "0", STR_PAD_LEFT);
+            $quotation->quotation_number = 'QT' . str_pad($latestQuotation->id + 1, 7, "0", STR_PAD_LEFT);
         }
-        $invoice->customer_id = $customer->id;
-        $invoice->invoice_description = $request->input('Description');
-        $invoice->invoice_amount = $request->input('Amount');
-        $invoice->currency = $request->input('currency');
-        $invoice->rate = $request->input('rate');
-        $invoice->save();
+        $quotation->customer_id = $customer->id;
+        $quotation->quotation_description = $request->input('Description');
+        $quotation->quotation_amount = $request->input('Amount');
+        $quotation->currency = $request->input('currency');
+        $quotation->rate = $request->input('rate');
+        $quotation->save();
 
         for ($i = 0; $i < count($request->input('ItemDescription')); $i++) {
-            InvoiceLines::query()->create([
-                'invoice_id' => $invoice->id,
+            QuotationLines::query()->create([
+                'quotation_id' => $quotation->id,
                 'item_description' => $request->ItemDescription[$i],
                 'price' => $request->ItemPrice[$i],
                 'quantity' => $request->ItemQuantity[$i],
                 'line_total' => $request->ItemPrice[$i] * $request->ItemQuantity[$i]
             ]);
         }
-        $InvoiceDetails = Invoice::query()->where('id', $invoice->id)->with('invoiceLines')->first();
-        return view('invoices.show', compact('InvoiceDetails', 'customer'));
+        $QuotationDetails = Quotation::query()->where('id', $quotation->id)->with('quotationLines')->first();
+        return view('quotation.show', compact('QuotationDetails', 'customer'));
     }
 
     /**
@@ -86,11 +87,11 @@ class InvoiceController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($invoice)
+    public function show($quotation)
     {
-        $InvoiceDetails = Invoice::query()->where('id', $invoice)->with('invoiceLines')->first();
-        $customer = Customer::query()->where('id', $InvoiceDetails->customer_id)->first();
-        return view('invoices.show', compact('InvoiceDetails', 'customer'));
+        $QuotationDetails = Quotation::query()->where('id', $quotation)->with('quotationLines')->first();
+        $customer = Customer::query()->where('id', $QuotationDetails->customer_id)->first();
+        return view('quotation.show', compact('QuotationDetails', 'customer'));
     }
 
     /**

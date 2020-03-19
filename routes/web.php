@@ -47,6 +47,7 @@ Route::get('/createCurrency','CurrencyController@create')->name('createCurrency'
 Route::post('/saveCurrency','CurrencyController@store')->name('saveCurrency');
 Route::get('/editCurrency/{currency}','CurrencyController@edit')->name('editCurrency');
 Route::get('/deleteCurrency/{currency}','CurrencyController@destroy')->name('deleteCurrency');
+Route::get('/searchCurrency/{currency}','CurrencyController@searchCurrency')->name('searchCurrency');
 //Exchange Rates routes
 Route::get('/rates','ExchangeRateController@index')->name('rates');
 Route::get('/createRate','ExchangeRateController@create')->name('createRate');
@@ -134,4 +135,12 @@ Route::post('/saveLeaveApplication','LeaveApplicationsController@store')->name('
 Route::get('/authoriseLeave/{application}','LeaveApplicationsController@acceptLeave')->name('authoriseLeave');
 Route::get('/rejectLeave/{application}','LeaveApplicationsController@rejectLeave')->name('rejectLeave');
 //Invoice Routes
-Route::get('/invoice','InvoiceController@index')->name('invoice');
+Route::get('/createInvoice','InvoiceController@create')->name('createInvoice');
+Route::post('/saveInvoice','InvoiceController@store')->name('saveInvoice');
+Route::get('/invoices','InvoiceController@index')->name('invoices');
+Route::get('/showInvoice/{invoice}','InvoiceController@show')->name('showInvoice');
+//Quotation Routes
+Route::get('/createQuotation','QuotationController@create')->name('createQuotation');
+Route::post('/saveQuotation','QuotationController@store')->name('saveQuotation');
+Route::get('/quotations','QuotationController@index')->name('quotations');
+Route::get('/showQuotation/{quotation}','QuotationController@show')->name('showQuotation');

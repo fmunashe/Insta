@@ -84,7 +84,8 @@
                         <ul style="display: none;">
                             <li><a href="{{route('createSale')}}"><i class="fa fa-cart-plus text-success"></i><span> Sales Dashboard</span></a>
                             </li>
-                            <li><a href="http://127.0.0.1:8000/"><i class="fa fa-exchange text-success"></i> Invoices & Quotations</a></li>
+                            <li><a href="{{route('invoices')}}"><i class="fa fa-envelope-open-o text-success"></i> Invoices</a></li>
+                            <li><a href="{{route('quotations')}}"><i class="fa fa-address-card text-success"></i> Quotations</a></li>
                         </ul>
                     </li>
                     <li class="submenu">
