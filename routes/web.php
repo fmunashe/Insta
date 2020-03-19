@@ -47,7 +47,6 @@ Route::get('/createCurrency','CurrencyController@create')->name('createCurrency'
 Route::post('/saveCurrency','CurrencyController@store')->name('saveCurrency');
 Route::get('/editCurrency/{currency}','CurrencyController@edit')->name('editCurrency');
 Route::get('/deleteCurrency/{currency}','CurrencyController@destroy')->name('deleteCurrency');
-Route::get('/searchCurrency/{currency}','CurrencyController@searchCurrency')->name('searchCurrency');
 //Exchange Rates routes
 Route::get('/rates','ExchangeRateController@index')->name('rates');
 Route::get('/createRate','ExchangeRateController@create')->name('createRate');
@@ -138,7 +137,6 @@ Route::get('/rejectLeave/{application}','LeaveApplicationsController@rejectLeave
 Route::get('/createInvoice','InvoiceController@create')->name('createInvoice');
 Route::post('/saveInvoice','InvoiceController@store')->name('saveInvoice');
 
-
 //requisition
 Route::get('/requisitions','RequisitionsController@index')->name('requisitions');
 Route::get('/addRequisition','RequisitionsController@create')->name('addRequisition');
@@ -166,14 +164,5 @@ Route::get('/showEmployee/{creditor}','CreditorsController@show')->name('showCre
 Route::get('/assets','AssetsController@index')->name('assets');
 Route::get('/addAsset','AssetsController@create')->name('addAsset');
 Route::post('/saveAsset','AssetsController@store')->name('saveAsset');
-Route::get('/editCreditor/{creditor}/','AssetsController@edit')->name('editCreditor');
-Route::get('/deleteCreditor/{creditor}','AssetsController@destroy')->name('deleteCreditor');
-Route::put('/updateCreditor/{creditor}','AssetsController@update')->name('updateCreditor');
-Route::get('/showEmployee/{creditor}','AssetsController@show')->name('showCreditor');
-Route::get('/invoices','InvoiceController@index')->name('invoices');
-Route::get('/showInvoice/{invoice}','InvoiceController@show')->name('showInvoice');
-//Quotation Routes
-Route::get('/createQuotation','QuotationController@create')->name('createQuotation');
-Route::post('/saveQuotation','QuotationController@store')->name('saveQuotation');
-Route::get('/quotations','QuotationController@index')->name('quotations');
-Route::get('/showQuotation/{quotation}','QuotationController@show')->name('showQuotation');
+Route::get('/editAsset/{asset}/','AssetsController@edit')->name('editAsset');
+Route::get('/deleteAsset/{asset}','AssetsController@destroy')->name('deleteAsset');

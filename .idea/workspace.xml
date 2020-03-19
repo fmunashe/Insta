@@ -2,41 +2,56 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b38b03ab-146c-46b6-9589-fdf298e27a63" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Customer.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/QuotationController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/CustomerRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Invoice.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/InvoiceLines.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Quotation.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/QuotationLines.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/receiptprinter.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_03_15_130949_create_customers_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_03_15_140648_create_invoices_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_03_15_142316_create_invoice_lines_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_03_15_192519_add_invoice_number_column_to_invoices.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_03_16_085111_create_quotations_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_03_16_090124_create_quotation_lines_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_03_16_102220_add_quotation_number_column_to_quotations.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/invoices/createInvoice.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/invoices/index.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/invoices/show.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/quotation/createQuotation.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/quotation/index.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/quotation/show.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/logs/laravel-2020-03-17.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Expense.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/logs/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/Insta.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Insta.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dictionaries/fzihove.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/fzihove.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Creditor.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Creditor.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Customer.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CurrencyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CurrencyController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/InvoiceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/InvoiceController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PurchaseOrdersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PurchaseOrdersController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/QuotationController.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SaleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SaleController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/CustomerRequest.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Invoice.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/InvoiceLines.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/PurchaseOrder.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/PurchaseOrder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Quotation.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/QuotationLines.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Requisition.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Requisition.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/receiptprinter.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_02_02_064133_create_products_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_02_02_064133_create_products_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_02_24_081844_create_purchase_orders_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_02_24_081844_create_purchase_orders_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_03_15_130949_create_customers_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_03_15_132509_create_expenses_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_03_15_132308_create_creditors_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_03_15_132308_create_creditors_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_03_15_132724_create_requisitions_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_03_15_132724_create_requisitions_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_03_15_140648_create_invoices_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_03_15_142316_create_invoice_lines_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_03_15_192519_add_invoice_number_column_to_invoices.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_03_16_085111_create_quotations_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_03_16_090124_create_quotation_lines_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_03_16_102220_add_quotation_number_column_to_quotations.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/invoices/createInvoice.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/invoices/index.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/invoices/show.blade.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/orders/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/orders/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/orders/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/orders/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/products/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/products/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/products/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/products/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/quotation/createQuotation.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/quotation/index.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/quotation/show.blade.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/sales/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/sales/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rm" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/logs/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-03-17.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel-2020-03-17.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/laravel-2020-03-18.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel-2020-03-18.log" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -255,5 +270,8 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

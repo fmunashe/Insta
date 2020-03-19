@@ -77,7 +77,7 @@
                     <div class="form-group row">
                         <label class="col-form-label col-md-2">Currency</label>
                         <div class="col-md-4">
-                            <select id="currency" type="text" class="form-control @error('currency') is-invalid @enderror" name="currency" value="{{ old('currency') }}"  autocomplete="currency" autofocus onchange="subAmount()" required>
+                            <select id="currency" type="text" class="form-control @error('currency') is-invalid @enderror" name="currency" value="{{ old('currency') }}"  autocomplete="currency" autofocus>
                            <option value="">Select Currency</option>
                                 @foreach($currencies as $currency)
                                 <option value="{{$currency->currency_code}}">{{$currency->currency_code}}</option>
@@ -91,7 +91,9 @@
                         </div>
                         <label class="col-form-label col-md-2">Rate</label>
                         <div class="col-md-4">
-                            <input id="rate" type="text" class="form-control @error('rate') is-invalid @enderror" name="rate" value="{{ old('rate') }}"  autocomplete="rate" autofocus>
+                            <select id="rate" type="text" class="form-control @error('rate') is-invalid @enderror" name="rate" value="{{ old('rate') }}"  autocomplete="rate" autofocus>
+                           <option value="">{{}}</option>
+                            </select>
                                 @error('rate')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -104,9 +106,8 @@
                         <table class="table" id="productTable">
                             <thead>
                             <tr>
-                                <th style="width: 50%">Item Description</th>
-                                <th style="width: 20%">Quantity</th>
-                                <th style="width: 20%">Price</th>
+                                <th style="width: 60%">Item Description</th>
+                                <th style="width: 30%">Amount</th>
                                 <th style="width: 10%">Row Options</th>
                             </tr>
                             </thead>
@@ -116,7 +117,6 @@
                             for($x = 1; $x < 4; $x++) { ?>
                             <tr id="row<?php echo $x; ?>" class="<?php echo $arrayNumber; ?>">
                                 <td><input type="text" name="ItemDescription[]" id="ItemDesc<?php echo $x; ?>" class="form-control" required='required'></td>
-                                <td><input type="number" min="0" step="0.01" name="ItemQuantity[]" id="ItemQ<?php echo $x; ?>" class="form-control" required='required' onkeyup="subAmount()"></td>
                                 <td><input type="number" min="0" step="0.01" name="ItemPrice[]" id="ItemP<?php echo $x; ?>" class="form-control" required='required' onkeyup="subAmount()"></td>
                                 <td>
                                     <button type="button" class="btn btn-success" onclick="addRow()" id="addRowBtn"><i class="fa fa-plus"></i></button> &nbsp;
@@ -143,7 +143,7 @@
                     <div class="form-group row">
                         <label class="col-form-label col-md-2"></label>
                         <div class="col-md-10">
-                            <button class="btn btn-success form-control" type="submit" onmouseover="subAmount()" onclick="subAmount()">{{ __('Create Customer Invoice') }}</button>
+                            <button class="btn btn-success form-control" type="submit">{{ __('Create Customer Invoice') }}</button>
                         </div>
                     </div>
                 </form>
@@ -153,23 +153,6 @@
 @endsection
 @section('javascripts')
     <script type="text/javascript">
-        $(document).ready(function(){
-            // currency Change
-            $('#currency').change(function(){
-                var id = $(this).val();
-                // AJAX request
-                $.ajax({
-                    url: 'searchCurrency/'+id,
-                    type: 'get',
-                    dataType: 'json',
-                    success: function(response){
-                    console.log(response);
-                        $("#rate").val(response.rate);
-                    }
-                });
-            });
-        });
-
         function removeProductRow(row = null) {
             if(row)
             {
@@ -190,7 +173,7 @@
                 var tr=$("#productTable tbody tr")[x];
                 var count=$(tr).attr('id');
                 count=count.substring(3);
-                totalSubAmount=Number(totalSubAmount)+(Number($("#ItemP"+count).val())*Number($("#ItemQ"+count).val())*Number($("#rate").val()))
+                totalSubAmount=Number(totalSubAmount)+Number($("#ItemP"+count).val())
             }
             totalSubAmount=totalSubAmount.toFixed(2);
             document.getElementById('Amount').value=totalSubAmount;
@@ -223,9 +206,6 @@
                     var tr = '<tr id="row'+count+'" class="'+arrayNumber+'">'+
                         '<td>'+
                         '<input type="text" name="ItemDescription[]" id="ItemDesc'+count+'" class="form-control" required="required"/>'+
-                        '</td>'+
-                        '<td>'+
-                        '<input type="number" min="0" step="0.01" name="ItemQuantity[]" id="ItemQ'+count+'" class="form-control" required="required" onkeyup="subAmount()" />'+
                         '</td>'+
                         '<td>'+
                         '<input type="number" min="0" step="0.01" name="ItemPrice[]" id="ItemP'+count+'" class="form-control" required="required" onkeyup="subAmount()" />'+
