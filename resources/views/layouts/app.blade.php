@@ -89,6 +89,8 @@
                             <li><a href="{{route('createInvoice')}}"><i class="fa fa-envelope-open-o text-success"></i> Invoices</a></li>
                             <li><a href="#"><i class="fa fa-address-card text-success"></i> Quotations</a></li>
                             <li><a href="{{route('requisitions')}}"><i class="fa fa-gavel text-success"></i> Requisitions</a></li>
+                            <li><a href="{{route('invoices')}}"><i class="fa fa-envelope-open-o text-success"></i> Invoices</a></li>
+                            <li><a href="{{route('quotations')}}"><i class="fa fa-address-card text-success"></i> Quotations</a></li>
                         </ul>
                     </li>
                     <li class="submenu">

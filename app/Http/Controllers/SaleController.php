@@ -7,7 +7,7 @@ use App\ExchangeRate;
 use App\Product;
 use App\Sale;
 use App\SaleLines;
-use http\Env\Response;
+use charlieuki\ReceiptPrinter\ReceiptPrinter;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -25,9 +25,8 @@ class SaleController extends Controller
         } elseif (session('error_message')) {
             Alert::error('error', session('error_message'))->showConfirmButton('Close', '#b92b53');
         }
-        $sales=Sale::query()->with('saleLines')->get();
-//        dd($sales);
-        return view('sales.index',compact('sales'));
+        $sales = Sale::query()->with('saleLines')->get();
+        return view('sales.index', compact('sales'));
     }
 
     /**
@@ -98,6 +97,44 @@ class SaleController extends Controller
                     'quantity' => $getProduct->quantity - $product['number'],
                 ]);
             }
+            // Set params
+            $mid = '123123456';
+            $store_name = 'Insta-Visionary Enterprises';
+            $store_address = '121 Fife Street Bulawayo';
+            $store_phone = '+263783700587/+263772842534';
+            $store_email = 'insta@gmail.com';
+            $store_website = 'instavisionary.com';
+            $tax_percentage = 2;
+            $transaction_id = 'TXN-'.$sale->id;
+            // Init printer
+            $printer = new ReceiptPrinter();
+            $printer->init(
+                config('receiptprinter.connector_type'),
+                config('receiptprinter.connector_descriptor')
+            );
+            // Set store info
+            $printer->setStore($mid, $store_name, $store_address, $store_phone, $store_email, $store_website);
+            //Add dotted line
+            $printer->printDashedLine();
+            // Add items
+            for ($i = 0; $i < count($request->products); $i++) {
+                $product = $request->products[$i];
+                $printer->addItem($product['product_name'],$product['number'],$product['price']);
+            }
+            // Set tax
+            $printer->setTax($tax_percentage);
+            // Calculate total
+            $printer->calculateSubTotal();
+            $printer->calculateGrandTotal();
+            // Set transaction ID
+            $printer->setTransactionID($transaction_id);
+            // Set qr code
+            $printer->setQRcode([
+                'tid' => $transaction_id,
+            ]);
+            // Print receipt
+//            $printer->printReceipt();
+
             return redirect()->route('createSale')->withSuccessMessage("Sale Successfully recorded");
         }
     }
@@ -110,7 +147,7 @@ class SaleController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
