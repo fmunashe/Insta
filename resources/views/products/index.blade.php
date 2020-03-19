@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card-box">
-                <h4 class="card-title">Registered Products<a href="{{route('createProduct')}}" class="btn btn-success btn-rounded pull-right"><i class="fa fa-plus"></i> New Product</a></h4>
+                <h4 class="card-title">Registered Products<a href="{{route('receiveStock')}}" class="btn btn-success btn-rounded pull-right"><i class="fa fa-plus"></i> New Product</a></h4>
                 <table id="client" class="table table-striped table-hover table-condensed">
                     <thead>
                     <tr>
@@ -37,7 +37,7 @@
                                 <div class="dropdown dropdown-action">
                                     <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                                     <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="/editProduct/{{$product->id}}"><i class="custom-badge status-green fa fa-pencil m-r-5">&nbsp; Edit</i></a>
+                                        <a class="dropdown-item" href="/editProduct/{{$product->id}}"><i class="custom-badge status-green fa fa-pencil m-r-5">&nbsp; Update Price</i></a>
                                         <a class="dropdown-item" href="/deleteProduct/{{$product->id}}"><i class="custom-badge status-red fa fa-trash-o m-r-5">&nbsp;Delete</i></a>
                                     </div>
                                 </div>

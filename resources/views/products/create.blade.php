@@ -4,7 +4,7 @@
         <div class="col-lg-12">
             <div class="card-box">
                 <h4 class="card-title">New Product</h4>
-                <form method="post" action="{{route('saveProduct')}}">
+                <form method="post" action="{{route('saveStock')}}">
                     @csrf
                     <div class="form-group row">
                         <label class="col-form-label col-md-2">Product Category</label>
@@ -97,7 +97,7 @@
                     <div class="form-group row">
                         <label class="col-form-label col-md-2"></label>
                         <div class="col-md-10">
-                            <button class="btn btn-success form-control" type="submit">{{ __('Register New Product') }}</button>
+                            <button class="btn btn-success form-control" type="submit">{{ __('Register New Stock') }}</button>
                         </div>
                     </div>
                 </form>

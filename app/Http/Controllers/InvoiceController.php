@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Currency;
+use App\Http\Requests\CustomerRequest;
 use Illuminate\Http\Request;
-use LaravelDaily\Invoices\Classes\Buyer;
-use LaravelDaily\Invoices\Classes\InvoiceItem;
-use LaravelDaily\Invoices\Invoice;
 
 class InvoiceController extends Controller
 {
@@ -16,7 +15,7 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-    return redirect('/invoice');
+        //
     }
 
     /**
@@ -26,7 +25,8 @@ class InvoiceController extends Controller
      */
     public function create()
     {
-        //
+        $currencies=Currency::with('rate')->get();
+        return view('invoices.createInvoice',compact('currencies'));
     }
 
     /**
@@ -35,7 +35,7 @@ class InvoiceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CustomerRequest $request)
     {
         //
     }

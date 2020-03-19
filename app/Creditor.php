@@ -8,4 +8,7 @@ class Creditor extends Model
 {
     protected $guarded=[];
 
+    public function requisitions(){
+        return  $this->belongsToMany(Requisition::class);
+    }
 }

@@ -36,9 +36,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = ProductCategory::all();
-        $units = UnitOfMeasure::all();
-        return view('products.create', compact('categories', 'units'));
+        //
     }
 
     /**
@@ -49,23 +47,8 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        PurchaseOrder::query()->create([
 
-            'product_name' => $request->input('product_name'),
-            'quantity' => $request->input('quantity'),
-            'order_number'=>Str::random(5),
-        ]);
-
-        Product::query()->create([
-            'product_code' => $request->input('product_code'),
-            'product_name' => $request->input('product_name'),
-            'product_description' => $request->input('product_description'),
-            'price' => $request->input('price'),
-            'quantity' => $request->input('quantity'),
-            'category_id' => $request->input('category_id'),
-            'unit' => $request->input('unit')
-        ]);
-        return redirect()->route('products')->withSuccessMessage("Product Successfully registered");
+        //
     }
 
     /**
@@ -85,9 +68,10 @@ class ProductController extends Controller
      * @param \App\Product $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit($product)
     {
-        return redirect()->route('products')->withErrorMessage("Unsupported function");
+        $product=Product::find($product);
+        return view('products.edit',compact('product'));
     }
 
     /**
@@ -97,9 +81,16 @@ class ProductController extends Controller
      * @param \App\Product $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
-        //
+        $data= $this-> validate($request,[
+            'price'=>'required',
+
+
+        ]);
+        Product::query()->where('id',$id)->update($data);
+        Alert::info('Successful', "priceUpdated")->persistent('Dismiss');
+        return redirect('/products');
     }
 
     /**

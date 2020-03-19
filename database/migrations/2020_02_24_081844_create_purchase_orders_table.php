@@ -18,6 +18,8 @@ class CreatePurchaseOrdersTable extends Migration
             $table->string('order_number');
             $table->string('product_name');
             $table->string('quantity');
+            $table->string('cost_price');
+            $table->string('invoice');
             $table->timestamps();
         });
     }
