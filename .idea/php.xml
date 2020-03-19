@@ -104,6 +104,8 @@
       <path value="$PROJECT_DIR$/vendor/jlawrence/eos" />
       <path value="$PROJECT_DIR$/vendor/umpirsky/language-list" />
       <path value="$PROJECT_DIR$/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/vendor/charlieuki/receiptprinter" />
+      <path value="$PROJECT_DIR$/vendor/mike42/escpos-php" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.1" />

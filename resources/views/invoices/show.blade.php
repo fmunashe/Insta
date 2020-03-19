@@ -14,11 +14,10 @@
                             <div class="col-6 col-sm-6 m-b-20">
                                 <img src="{{asset('frontend/assets/img/logo.png')}}" class="inv-logo" alt="">
                                 <ul class="list-unstyled">
-                                    <li>CoolYard</li>
-                                    <li>36 Doolah Building, 3rd Avenue,</li>
-                                    <li>Btwn Lobengula & Chitepo Bulawayo,</li>
-                                    <li>Tel: +263775586142,</li>
-                                    <li>BPN: 200245137</li>
+                                    <li>Insta-Visionary Enterprises</li>
+                                    <li>121 Fife Street, Bulawayo</li>
+                                    <li>Tel: +263783700587 / +263772842534,</li>
+                                    <li>BPN: 0200245132</li>
                                 </ul>
                             </div>
                             <div class="col-6 col-sm-6 m-b-20">
@@ -118,6 +117,9 @@
                                             </table>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="col-lg-12 bg-primary">
+                                    <p>Additional Info</p>
                                 </div>
                             </div>
                         </div>

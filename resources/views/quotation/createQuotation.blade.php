@@ -3,14 +3,14 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card-box">
-                <h4 class="card-title">Customer Invoice
+                <h4 class="card-title">Customer Quotation
                     @if (session('message'))
                         <div class="alert alert-success" role="alert">
                             {{ session('message') }}
                         </div>
                     @endif
                 </h4>
-                <form method="post" action="{{route('saveInvoice')}}">
+                <form method="post" action="{{route('saveQuotation')}}">
                     @csrf
 
                     <div class="row">
@@ -64,7 +64,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-form-label col-md-2">Invoice Description</label>
+                        <label class="col-form-label col-md-2">Quotation Description</label>
                         <div class="col-md-10">
                             <input id="Description" type="text" class="form-control @error('Description') is-invalid @enderror" name="Description" value="{{ old('Description') }}"  autocomplete="Description" autofocus>
                             @error('Description')
@@ -99,7 +99,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="form-label">Invoice Items</div>
+                    <div class="form-label">Quotation Items</div>
                     <div class="table-responsive">
                         <table class="table" id="productTable">
                             <thead>
@@ -130,7 +130,7 @@
                             </tbody></table>
                     </div>
                     <div class="form-group row">
-                        <label class="col-form-label col-md-2">Total Invoice Amount</label>
+                        <label class="col-form-label col-md-2">Total Quotation Amount</label>
                         <div class="col-md-10">
                             <input id="Amount" type="number" min="0" step="0.01" class="form-control @error('Amount') is-invalid @enderror" name="Amount" value="{{ old('Amount') }}"  autocomplete="Amount" autofocus>
                             @error('Amount')
@@ -143,7 +143,7 @@
                     <div class="form-group row">
                         <label class="col-form-label col-md-2"></label>
                         <div class="col-md-10">
-                            <button class="btn btn-success form-control" type="submit" onmouseover="subAmount()" onclick="subAmount()">{{ __('Create Customer Invoice') }}</button>
+                            <button class="btn btn-success form-control" type="submit" onmouseover="subAmount()" onclick="subAmount()">{{ __('Create Customer Quotation') }}</button>
                         </div>
                     </div>
                 </form>

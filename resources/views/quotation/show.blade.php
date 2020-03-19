@@ -3,7 +3,7 @@
     <div class="content">
         <div class="row">
             <div class="col-lg-12">
-                <h4 class="page-title"><a href="{{route('invoices')}}" class="btn btn-success btn-rounded pull-right"><i class="fa fa-backward"></i> Back</a> <a href="#" onclick="printInvoice('printable')"><i class="custom-badge status-green fa fa-print m-r-5">&nbsp Print</i></a></h4>
+                <h4 class="page-title"><a href="{{route('quotations')}}" class="btn btn-success btn-rounded pull-right"><i class="fa fa-backward"></i> Back</a> <a href="#" onclick="printQuotation('printable')"><i class="custom-badge status-green fa fa-print m-r-5">&nbsp Print</i></a></h4>
             </div>
         </div>
         <div class="row" id="printable">
@@ -14,18 +14,17 @@
                             <div class="col-6 col-sm-6 m-b-20">
                                 <img src="{{asset('frontend/assets/img/logo.png')}}" class="inv-logo" alt="">
                                 <ul class="list-unstyled">
-                                    <li>CoolYard</li>
-                                    <li>36 Doolah Building, 3rd Avenue,</li>
-                                    <li>Btwn Lobengula & Chitepo Bulawayo,</li>
-                                    <li>Tel: +263775586142,</li>
-                                    <li>BPN: 200245137</li>
+                                    <li>Insta-Visionary Enterprises</li>
+                                    <li>121 Fife Street, Bulawayo</li>
+                                    <li>Tel: +263783700587 / +263772842534,</li>
+                                    <li>BPN: 0200245132</li>
                                 </ul>
                             </div>
                             <div class="col-6 col-sm-6 m-b-20">
                                 <div class="invoice-details">
-                                    <h3 class="text-lowercasecase">Invoice #{{$InvoiceDetails->invoice_number}}</h3>
+                                    <h3 class="text-lowercasecase">Quotation #{{$QuotationDetails->quotation_number}}</h3>
                                     <ul class="list-unstyled">
-                                        <li>Invoice Date: <span>{{$InvoiceDetails->created_at}}</span></li>
+                                        <li>Quotation Date: <span>{{$QuotationDetails->created_at}}</span></li>
                                     </ul>
                                 </div>
                             </div>
@@ -34,7 +33,7 @@
                         <div class="row">
                             <div class="col-sm-6 col-lg-6 m-b-20">
 
-                                <h5>Invoice to:</h5>
+                                <h5>Quotation to:</h5>
                                 <ul class="list-unstyled">
                                     <li>
                                         <h5><strong>{{$customer->name}}</strong></h5>
@@ -51,10 +50,10 @@
                                     <span class="text-muted">Payment Details:</span>
                                     <ul class="list-unstyled invoice-payment-details">
                                         <li>
-                                            <h5>Total Due: <span class="text-right">{{number_format($InvoiceDetails->invoice_amount,2)}}</span></h5>
+                                            <h5>Total Due: <span class="text-right">{{number_format($QuotationDetails->quotation_amount,2)}}</span></h5>
                                         </li>
-                                        <li>Currency: <span>{{$InvoiceDetails->currency}}</span></li>
-                                        <li>Rate: <span>{{$InvoiceDetails->rate}}</span></li>
+                                        <li>Currency: <span>{{$QuotationDetails->currency}}</span></li>
+                                        <li>Rate: <span>{{$QuotationDetails->rate}}</span></li>
                                     </ul>
                                 </div>
                             </div>
@@ -72,7 +71,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($InvoiceDetails->invoiceLines as $lines)
+                                @foreach($QuotationDetails->quotationLines as $lines)
                                     <tr>
                                         <td>{{$lines->id}}</td>
                                         <td>{{$lines->item_description}}</td>
@@ -97,7 +96,7 @@
                                                 <tr>
                                                     <th>Total Payable:</th>
                                                     <td class="text-right text-primary">
-                                                        <h5>{{number_format($InvoiceDetails->invoice_amount,2)}}</h5>
+                                                        <h5>{{number_format($QuotationDetails->quotation_amount,2)}}</h5>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -106,7 +105,7 @@
                                                 </tr>
                                                 <tr>
                                                     <th>Outstanding Balance:</th>
-                                                    <td class="text-right">{{number_format($InvoiceDetails->invoice_amount,2)}}</td>
+                                                    <td class="text-right">{{number_format($QuotationDetails->quotation_amount,2)}}</td>
                                                 </tr>
                                                 </tbody>
                                                 {{--                                                <tr>--}}
@@ -119,6 +118,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-lg-12 bg-primary">
+                                    <p>Additional Info</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -129,7 +131,7 @@
 @endsection
 @section('javascripts')
     <script type="text/javascript">
-        function printInvoice(divName) {
+        function printQuotation(divName) {
             var printContents = document.getElementById(divName).innerHTML;
             var originalContents = document.body.innerHTML;
             document.body.innerHTML = printContents;

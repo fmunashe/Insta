@@ -41,7 +41,7 @@
                     @endforeach
                 </select>
                 <span class="mr-3">Rate : @{{ rate.rate }}</span>
-                <button @click="create" class="btn btn-success btn-rounded">Create</button>
+                <button @click="create" class="btn btn-success btn-rounded">Post Sale</button>
             </div>
             <div style="height: calc(100vh - 130px - 55px - 55px);overflow-y: scroll;position: absolute;top: 55px;bottom: 55px;right: 0;left: 0">
                 <table class="table table-hover tx-13">
@@ -215,20 +215,15 @@
                 fetchProduct : function () {
                     this.enterProductError = '';
                     window.axios.get(`/products/${this.code}/view`).then((response) => {
-
                         if(response.data)
                         {
                             this.addProduct(response.data);
                             return;
                         }
-
                         this.enterProductError = 'Product not found';
-
                     });
                 }
             }
         });
-
     </script>
-
 @endsection

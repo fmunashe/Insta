@@ -8,6 +8,7 @@ use App\Http\Requests\CustomerRequest;
 use App\Invoice;
 use App\InvoiceLines;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class InvoiceController extends Controller
 {
@@ -18,8 +19,13 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        $invoices=Invoice::all();
-        return view('invoices.index',compact('invoices'));
+        if (session('success_message')) {
+            Alert::success('success', session('success_message'))->showConfirmButton('Close', '#0f9b0f');
+        } elseif (session('error_message')) {
+            Alert::error('error', session('error_message'))->showConfirmButton('Close', '#b92b53');
+        }
+        $invoices = Invoice::all();
+        return view('invoices.index', compact('invoices'));
     }
 
     /**
@@ -70,9 +76,8 @@ class InvoiceController extends Controller
                 'line_total' => $request->ItemPrice[$i] * $request->ItemQuantity[$i]
             ]);
         }
-        $InvoiceDetails=Invoice::query()->where('id',$invoice->id)->with('invoiceLines')->first();
-//       dd($InvoiceDetails);
-        return view('invoices.show',compact('InvoiceDetails','customer'));
+        $InvoiceDetails = Invoice::query()->where('id', $invoice->id)->with('invoiceLines')->first();
+        return view('invoices.show', compact('InvoiceDetails', 'customer'));
     }
 
     /**
@@ -83,9 +88,9 @@ class InvoiceController extends Controller
      */
     public function show($invoice)
     {
-        $InvoiceDetails=Invoice::query()->where('id',$invoice)->with('invoiceLines')->first();
-        $customer=Customer::query()->where('id',$InvoiceDetails->customer_id)->first();
-        return view('invoices.show',compact('InvoiceDetails','customer'));
+        $InvoiceDetails = Invoice::query()->where('id', $invoice)->with('invoiceLines')->first();
+        $customer = Customer::query()->where('id', $InvoiceDetails->customer_id)->first();
+        return view('invoices.show', compact('InvoiceDetails', 'customer'));
     }
 
     /**

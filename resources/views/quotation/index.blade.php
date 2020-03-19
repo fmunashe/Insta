@@ -7,28 +7,28 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card-box">
-                <h4 class="card-title">System Generated Quotations <a href="{{route('createQuotation')}}" class="btn btn-success btn-rounded pull-right"><i class="fa fa-plus"></i> New Invoice</a></h4>
+                <h4 class="card-title">System Generated Quotations <a href="{{route('createQuotation')}}" class="btn btn-success btn-rounded pull-right"><i class="fa fa-plus"></i> New Quotation</a></h4>
                 <table id="client" class="table table-striped table-hover table-condensed">
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Invoice Number</th>
-                        <th>Invoice Description</th>
+                        <th>Quotation Number</th>
+                        <th>Quotation Description</th>
                         <th>Currency</th>
                         <th>Rate</th>
-                        <th>Invoice Amount</th>
+                        <th>Quotation Amount</th>
                         {{--                        <th>Action</th>--}}
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($invoices as $invoice)
+                    @foreach($quotations as $quotation)
                         <tr>
-                            <td>{{$invoice->id}}</td>
-                            <td><a href="/showInvoice/{{$invoice->id}}">{{$invoice->invoice_number}}</a></td>
-                            <td>{{$invoice->invoice_description}}</td>
-                            <td>{{$invoice->currency}}</td>
-                            <td>{{$invoice->rate}}</td>
-                            <td>{{$invoice->invoice_amount}}</td>
+                            <td>{{$quotation->id}}</td>
+                            <td><a href="/showQuotation/{{$quotation->id}}">{{$quotation->quotation_number}}</a></td>
+                            <td>{{$quotation->quotation_description}}</td>
+                            <td>{{$quotation->currency}}</td>
+                            <td>{{$quotation->rate}}</td>
+                            <td>{{$quotation->quotation_amount}}</td>
                             {{--                            <td>--}}
                             {{--                                <div class="dropdown dropdown-action">--}}
                             {{--                                    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>--}}
