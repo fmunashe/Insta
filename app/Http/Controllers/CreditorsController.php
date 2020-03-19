@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Currency;
-use App\Http\Requests\CustomerRequest;
+use App\Creditor;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
-class InvoiceController extends Controller
+class CreditorsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,8 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        //
+        $creditors=Creditor::query()->paginate(10);
+        return view('creditors.index',compact("creditors"));
     }
 
     /**
@@ -25,8 +26,7 @@ class InvoiceController extends Controller
      */
     public function create()
     {
-        $currencies=Currency::with('rate')->get();
-        return view('invoices.createInvoice',compact('currencies'));
+        return view('creditors.create');
     }
 
     /**
@@ -35,9 +35,18 @@ class InvoiceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CustomerRequest $request)
+    public function store(Request $request)
     {
-        //
+        $data= $this-> validate($request,[
+            'name'=>'required',
+            'address'=>'required',
+            'phone_number'=>['required','max:10'],
+
+        ]);
+
+        Creditor::query()->create($data);
+        Alert::info('Successful', "a creditor created")->persistent('Dismiss');
+        return redirect()->route('creditors');
     }
 
     /**
@@ -48,7 +57,8 @@ class InvoiceController extends Controller
      */
     public function show($id)
     {
-        //
+        $creditors=Creditor::find($id);
+        return view('creditors.show',compact('creditors'));
     }
 
     /**
@@ -59,7 +69,8 @@ class InvoiceController extends Controller
      */
     public function edit($id)
     {
-        //
+        $creditor=Creditor::find($id);
+        return view('creditors.edit',compact('creditor'));
     }
 
     /**
@@ -71,7 +82,15 @@ class InvoiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data= $this-> validate($request,[
+            'name'=>'required',
+            'address'=>'required',
+            'phone_number'=>['required','max:10'],
+
+        ]);
+        Creditor::query()->where('id',$id)->update($data);
+        Alert::info('Successful', "creditor info updated")->persistent('Dismiss');
+        return redirect('/creditors');
     }
 
     /**
@@ -82,6 +101,8 @@ class InvoiceController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        Alert::warning('Successful', "creditor can not be deleted")->persistent('Dismiss');
+        return redirect('/creditors');
     }
 }

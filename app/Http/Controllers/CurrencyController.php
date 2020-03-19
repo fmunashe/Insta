@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Currency;
-use App\ExchangeRate;
 use App\Http\Requests\CurrencyRequest;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -102,11 +101,5 @@ class CurrencyController extends Controller
         catch(\Exception $ex){
            return back()->withErrorMessage($ex);
         }
-    }
-
-    public function searchCurrency($currency){
-    $currencyId=Currency::query()->where('currency_code',$currency)->first();
-    $rate=ExchangeRate::query()->where('currency_code',$currencyId->id)->first();
-    return response()->json(["rate"=>$rate->rate]);
     }
 }
