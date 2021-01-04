@@ -115,7 +115,15 @@
                             $arrayNumber = 0;
                             for($x = 1; $x < 4; $x++) { ?>
                             <tr id="row<?php echo $x; ?>" class="<?php echo $arrayNumber; ?>">
-                                <td><input type="text" name="ItemDescription[]" id="ItemDesc<?php echo $x; ?>" class="form-control" required='required'></td>
+                                <td>
+                                    <select name="ItemDescription[]" id="ItemDesc<?php echo $x; ?>" class="form-control"
+                                            required='required'>
+                                        <option value="">Select Item</option>
+                                        @foreach($products as $product)
+                                            <option value="{{$product->product_code}}">{{$product->product_name}}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
                                 <td><input type="number" min="0" step="0.01" name="ItemQuantity[]" id="ItemQ<?php echo $x; ?>" class="form-control" required='required' onkeyup="subAmount()"></td>
                                 <td><input type="number" min="0" step="0.01" name="ItemPrice[]" id="ItemP<?php echo $x; ?>" class="form-control" required='required' onkeyup="subAmount()"></td>
                                 <td>
@@ -221,9 +229,14 @@
                     $("#addRowBtn").button("reset");
 
                     var tr = '<tr id="row'+count+'" class="'+arrayNumber+'">'+
-                        '<td>'+
-                        '<input type="text" name="ItemDescription[]" id="ItemDesc'+count+'" class="form-control" required="required"/>'+
-                        '</td>'+
+                        '<td>' +
+                        '<select name="ItemDescription[]" id="ItemDesc' + count + '" class="form-control" required="required">'+
+                        '<option value="">Select Item</option> '+
+                        @foreach($products as $product)
+                            '<option value="{{$product->product_code}}">{{$product->product_name}}</option> '+
+                        @endforeach
+                            '</select>'+
+                        '</td>' +
                         '<td>'+
                         '<input type="number" min="0" step="0.01" name="ItemQuantity[]" id="ItemQ'+count+'" class="form-control" required="required" onkeyup="subAmount()" />'+
                         '</td>'+

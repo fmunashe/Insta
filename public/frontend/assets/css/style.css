@@ -480,8 +480,8 @@ table.table td h2 span {
 	color: #fff;
 }
 .btn-success {
-	background-color: #2d572f;
-	border: 1px solid #2d572f
+	background-color: #200481;
+	border: 1px solid #200481
 }
 .btn-success:hover,
 .btn-success:focus,
@@ -702,7 +702,7 @@ textarea.form-control {
 -----------------------*/
 
 .header {
-	background-color:#2D572F;
+	background-color:#200481;
 	left: 0;
 	position: fixed;
 	right: 0;
@@ -852,13 +852,14 @@ textarea.form-control {
 	font-size: 15px;
 	height: auto;
 	padding: 0 20px;
+    background-color: #200481;
 }
 .sidebar-menu li a:hover {
-	color: #52c234;
+	color: #ffffff;
 }
 .sidebar-menu li.active a {
-	color: #52c234;
-	background-color: #f3f3f3;
+	color: #FFFFFF;
+	background-color: #200481;
 }
 .menu-title {
 	color: #2D572F;

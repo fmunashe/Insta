@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PurchaseOrderRequest;
 use App\Imports\PurchaseOrdersImport;
 use App\Product;
+use App\ProductCategory;
 use App\PurchaseOrder;
+use App\Supplier;
+use App\UnitOfMeasure;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use RealRashid\SweetAlert\Facades\Alert;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -26,7 +30,8 @@ class PurchaseOrdersController extends Controller
         elseif(session('error_message')){
             Alert::error('error', session('error_message'))->showConfirmButton('Close', '#b92b53');
         }
-        $orders=PurchaseOrder::query()->paginate(20);
+        $this->authorize('viewAny',Product::class);
+        $orders=PurchaseOrder::all();
         return view('orders.index',compact('orders'));
     }
 
@@ -49,10 +54,49 @@ class PurchaseOrdersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PurchaseOrderRequest $request)
+    public function store(Request $request)
     {
-        Excel::import(new PurchaseOrdersImport, request()->file('import_file'));
-       return redirect()->route('orders')->withSuccessMessage("Products Successfully Uploaded");
+        $data= $this-> validate($request,[
+            'product_code'=>'required',
+            'quantity'=>'required',
+            'invoice'=>'required',
+            'supplier_id'=>'required',
+            'product_name'=>'required',
+            'unit'=>'required',
+            'cost_price'=>'required',
+            'product_description'=>'required',
+            'price'=>'required','max:10',
+            'category_id'=>'required',
+
+        ]);
+
+        $orders=PurchaseOrder::query()->create([
+
+            'product_name' => $request->input('product_name'),
+            'quantity' => $request->input('quantity'),
+            'invoice'=>$request->input('invoice'),
+            'cost_price'=>$request->input('cost_price'),
+            'order_number'=>Str::random(5),
+        ]);
+        $orders->suppliers()->sync($request->supplier_id);
+
+        $checkProduct=Product::query()->Where('product_code',$request->input('product_code'))->first();
+        if($checkProduct){
+            $checkProduct->quantity+= $request->input('quantity');
+            $checkProduct->save();
+        }
+        else{
+            Product::query()->create([
+                'product_code' => $request->input('product_code'),
+                'product_name' => $request->input('product_name'),
+                'product_description' => $request->input('product_description'),
+                'price' => $request->input('price'),
+                'quantity' => $request->input('quantity'),
+                'category_id' => $request->input('category_id'),
+                'unit' => $request->input('unit')
+            ]);
+        }
+        return redirect()->route('orders')->withSuccessMessage("New Stock successfully added");
     }
 
     /**
@@ -74,8 +118,8 @@ class PurchaseOrdersController extends Controller
      */
     public function edit($id)
     {
-        $product=PurchaseOrder::query()->find($id);
-        return view('orders.edit',compact('product'));
+        Alert::warning('Successful', "Unsupported function, to edit price go to products")->persistent('Dismiss');
+        return view('orders.edit');
     }
 
     /**
@@ -96,9 +140,9 @@ class PurchaseOrdersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PurchaseOrder $order,$id)
+    public function destroy($id)
     {
-        $this->authorize('delete',$order);
+       // $this->authorize('delete',$order);
         $purchaseOrder=PurchaseOrder::query()->find($id);
         $name=PurchaseOrder::query()->where('id',$id)->value('product_name');
         $quantity=PurchaseOrder::query()->where('id',$id)->value('quantity');
@@ -107,6 +151,7 @@ class PurchaseOrdersController extends Controller
         $product->update([
             'quantity'=>$productQuantity-$quantity
         ]);
+        $purchaseOrder->suppliers()->detach();
         $purchaseOrder->delete();
         return redirect()->route('orders')->withSuccessMessage("Product Successfully Rolled back");
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Currency;
 use App\ExchangeRate;
 use App\Http\Requests\CurrencyRequest;
+use App\Product;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -23,7 +24,7 @@ class CurrencyController extends Controller
         elseif(session('error_message')){
             Alert::error('error', session('error_message'))->showConfirmButton('Close', '#b92b53');
         }
-
+        $this->authorize('viewAny',Product::class);
         $currencies=Currency::with('rate')->get();
         return view('currency.index',compact('currencies'));
     }
@@ -35,6 +36,7 @@ class CurrencyController extends Controller
      */
     public function create()
     {
+        $this->authorize('viewAny',Product::class);
         return view('currency.create');
     }
 
@@ -46,6 +48,7 @@ class CurrencyController extends Controller
      */
     public function store(CurrencyRequest $request)
     {
+        $this->authorize('viewAny',Product::class);
         Currency::query()->create([
           'currency_code'=>$request->input('currency_code') ,
           'currency_name'=>$request->input('currency_name')
@@ -95,6 +98,7 @@ class CurrencyController extends Controller
      */
     public function destroy(Currency $currency)
     {
+        $this->authorize('viewAny',Product::class);
         try{
            $currency->delete();
            return redirect()->route('currencies')->withSuccessMessage("Currency removed successfully from the system");

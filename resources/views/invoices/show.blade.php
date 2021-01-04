@@ -3,7 +3,7 @@
     <div class="content">
         <div class="row">
             <div class="col-lg-12">
-                <h4 class="page-title"><a href="{{route('invoices')}}" class="btn btn-success btn-rounded pull-right"><i class="fa fa-backward"></i> Back</a> <a href="#" onclick="printInvoice('printable')"><i class="custom-badge status-green fa fa-print m-r-5">&nbsp Print</i></a></h4>
+                <h4 class="page-title"><a href="{{route('invoices')}}" class="btn btn-success btn-rounded pull-right"><i class="fa fa-backward"></i> Back</a> <a href="#" onclick="printInvoice('printable')"><i class="custom-badge status-blue fa fa-print m-r-5">&nbsp Print</i></a></h4>
             </div>
         </div>
         <div class="row" id="printable">
@@ -15,8 +15,9 @@
                                 <img src="{{asset('frontend/assets/img/logo.png')}}" class="inv-logo" alt="">
                                 <ul class="list-unstyled">
                                     <li>Insta-Visionary Enterprises</li>
-                                    <li>121 Fife Street, Bulawayo</li>
-                                    <li>Tel: +263783700587 / +263772842534,</li>
+                                    <li><i class="fa fa-address-card"> 121 Fife Street, Bulawayo</i></li>
+                                    <li><i class="fa fa-phone"> Tel: +263783700587 / +263772842534 / +263784292977,</i></li>
+                                    <li><a href="#" class="fa fa-envelope-open"> Email: instavisonary@gmail.com</a></li>
                                     <li>BPN: 0200245132</li>
                                 </ul>
                             </div>
@@ -67,7 +68,7 @@
                                     <th>ITEM</th>
                                     <th>UNIT COST</th>
                                     <th>QUANTITY</th>
-                                    <th>TOTAL</th>
+                                    <th>SUB TOTAL</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -94,14 +95,18 @@
                                             <table class="table mb-0">
                                                 <tbody>
                                                 <tr>
-                                                    <th>Total Payable:</th>
+                                                    <th>Currency:</th>
+                                                    <td class="text-right">{{$InvoiceDetails->currency}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Sub Total:</th>
                                                     <td class="text-right text-primary">
-                                                        <h5>{{number_format($InvoiceDetails->invoice_amount,2)}}</h5>
+                                                        <h5>{{number_format($lineTotal,2)}}</h5>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <th>Paid Amount:</th>
-                                                    <td class="text-right">{{number_format(0,2)}}</td>
+                                                    <th>Exchange Rate:</th>
+                                                    <td class="text-right">{{"X ".$InvoiceDetails->rate}}</td>
                                                 </tr>
                                                 <tr>
                                                     <th>Outstanding Balance:</th>
@@ -118,9 +123,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-12 bg-primary">
-                                    <p>Additional Info</p>
-                                </div>
+{{--                                <div class="col-lg-12 bg-primary">--}}
+{{--                                    <p>Additional Info</p>--}}
+{{--                                </div>--}}
                             </div>
                         </div>
                     </div>

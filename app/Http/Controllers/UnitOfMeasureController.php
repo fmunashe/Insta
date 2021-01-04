@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UnitOfMeasureRequest;
+use App\Product;
 use App\UnitOfMeasure;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -22,6 +23,7 @@ class UnitOfMeasureController extends Controller
         elseif(session('error_message')){
             Alert::error('error', session('error_message'))->showConfirmButton('Close', '#b92b53');
         }
+        $this->authorize('viewAny',Product::class);
         $units=UnitOfMeasure::all();
         return view('measurement.index',compact('units'));
     }
@@ -33,6 +35,7 @@ class UnitOfMeasureController extends Controller
      */
     public function create()
     {
+        $this->authorize('viewAny',Product::class);
         return view('measurement.create');
     }
 
@@ -44,6 +47,7 @@ class UnitOfMeasureController extends Controller
      */
     public function store(UnitOfMeasureRequest $request)
     {
+        $this->authorize('viewAny',Product::class);
         UnitOfMeasure::query()->create([
            'unit_of_measure'=>$request->input('unit_of_measure')
         ]);
@@ -92,6 +96,7 @@ class UnitOfMeasureController extends Controller
      */
     public function destroy(UnitOfMeasure $unitOfMeasure)
     {
+        $this->authorize('viewAny',Product::class);
         try {
            $unitOfMeasure->delete();
             return redirect()->route('units')->withSuccessMessage("Unit Successfully removed");

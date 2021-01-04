@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductCategoryRequest;
+use App\Product;
 use App\ProductCategory;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -19,6 +20,7 @@ class ProductCategoryController extends Controller
         if(session('success_message')){
             Alert::success('success', session('success_message'))->showConfirmButton('Close', '#0f9b0f');
         }
+        $this->authorize('viewAny',Product::class);
         $categories=ProductCategory::with('products')->get();
         return view('categories.index',compact('categories'));
     }
@@ -30,6 +32,7 @@ class ProductCategoryController extends Controller
      */
     public function create()
     {
+        $this->authorize('viewAny',Product::class);
         return view('categories.create');
     }
 
@@ -41,6 +44,7 @@ class ProductCategoryController extends Controller
      */
     public function store(ProductCategoryRequest $request)
     {
+        $this->authorize('viewAny',Product::class);
         ProductCategory::query()->create([
         'category_name'=>$request->input('category_name')
         ]);
@@ -89,6 +93,7 @@ class ProductCategoryController extends Controller
      */
     public function destroy(ProductCategory $productCategory)
     {
+        $this->authorize('viewAny',Product::class);
         $productCategory->delete();
         return redirect()->route('categories')->withSuccessMessage("Category Removed Successfully");
     }

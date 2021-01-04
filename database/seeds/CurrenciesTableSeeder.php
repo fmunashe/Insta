@@ -42,9 +42,9 @@ class CurrenciesTableSeeder extends Seeder
         $categories=[
             ['category_name'=>'Hardware'],
             ['category_name'=>'Plumbing'],
-            ['category_name'=>'Cosmetics'],
-            ['category_name'=>'Stationery'],
-            ['category_name'=>'Kitchen ware'],
+            ['category_name'=>'Building'],
+            ['category_name'=>'Carpentry'],
+            ['category_name'=>'Electrical'],
             ['category_name'=>'Other'],
         ];
         $units=[
@@ -52,6 +52,7 @@ class CurrenciesTableSeeder extends Seeder
             ['unit_of_measure'=>'Box'],
             ['unit_of_measure'=>'Packet'],
             ['unit_of_measure'=>'Pair'],
+            ['unit_of_measure'=>'KGs'],
         ];
         $users=[
            ['name'=>'Farai Zihove','email'=>'fzihove@agribank.co.zw','password'=>Hash::make('12345678'),'admin'=>true,'cashier'=>true],

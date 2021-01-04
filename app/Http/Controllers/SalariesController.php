@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Product;
 use App\Salary;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -20,6 +21,7 @@ class SalariesController extends Controller
         } elseif (session('error_message')) {
             Alert::error('error', session('error_message'))->showConfirmButton('Close', '#b92b53');
         }
+        $this->authorize('viewAny',Product::class);
         $grades=Salary::query()->paginate('20');
 
         return view('grades.index',compact('grades'));
@@ -32,7 +34,7 @@ class SalariesController extends Controller
      */
     public function create()
     {
-
+        $this->authorize('viewAny',Product::class);
         return view('grades.create');
     }
 
@@ -44,7 +46,7 @@ class SalariesController extends Controller
      */
     public function store(Request $request)
     {
-
+        $this->authorize('viewAny',Product::class);
         $data=$this-> validate($request,[
             'grade'=>'required',
             'amount'=>'required'
@@ -61,6 +63,7 @@ class SalariesController extends Controller
      */
     public function show($id)
     {
+        $this->authorize('viewAny',Product::class);
         $grade=Salary::query()->find($id);
         return view('grades.show',compact('grade'));
     }
@@ -73,6 +76,7 @@ class SalariesController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('viewAny',Product::class);
         $grade=Salary::query()->find($id);
         return view('grades.edit',compact('grade'));
     }
@@ -86,6 +90,7 @@ class SalariesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->authorize('viewAny',Product::class);
         $data=$this-> validate($request,[
             'grade'=>'required',
             'amount'=>'required'
@@ -103,6 +108,7 @@ class SalariesController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('viewAny',Product::class);
         Salary::query()->where('id',$id)->delete();
         return redirect()->route('salaryGrade')->withSuccessMessage("Salary Grade Removed");
     }

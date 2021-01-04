@@ -19,7 +19,7 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-
+        return $user->admin==true?$this->allow():$this->deny("You are not allowed to view Users");
     }
 
     /**

@@ -7,6 +7,7 @@ use App\Customer;
 use App\Http\Requests\CustomerRequest;
 use App\Invoice;
 use App\InvoiceLines;
+use App\Product;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -36,7 +37,8 @@ class InvoiceController extends Controller
     public function create()
     {
         $currencies = Currency::with('rate')->get();
-        return view('invoices.createInvoice', compact('currencies'));
+        $products=Product::all();
+        return view('invoices.createInvoice', compact('currencies','products'));
     }
 
     /**
@@ -56,7 +58,7 @@ class InvoiceController extends Controller
         $invoice = new Invoice();
         $latestInvoice = Invoice::query()->orderby('created_at', 'DESC')->first();
         if ($latestInvoice == null) {
-            $invoice->invoive_number = 'INV' . str_pad(1, 7, "0", STR_PAD_LEFT);
+            $invoice->invoice_number = 'INV' . str_pad(1, 7, "0", STR_PAD_LEFT);
         } else {
             $invoice->invoice_number = 'INV' . str_pad($latestInvoice->id + 1, 7, "0", STR_PAD_LEFT);
         }
@@ -77,7 +79,8 @@ class InvoiceController extends Controller
             ]);
         }
         $InvoiceDetails = Invoice::query()->where('id', $invoice->id)->with('invoiceLines')->first();
-        return view('invoices.show', compact('InvoiceDetails', 'customer'));
+        $lineTotal=InvoiceLines::query()->where('invoice_id',$invoice->id)->sum('line_total');
+        return view('invoices.show', compact('InvoiceDetails', 'customer','lineTotal'));
     }
 
     /**
@@ -90,7 +93,8 @@ class InvoiceController extends Controller
     {
         $InvoiceDetails = Invoice::query()->where('id', $invoice)->with('invoiceLines')->first();
         $customer = Customer::query()->where('id', $InvoiceDetails->customer_id)->first();
-        return view('invoices.show', compact('InvoiceDetails', 'customer'));
+        $lineTotal=InvoiceLines::query()->where('invoice_id',$invoice)->sum('line_total');
+        return view('invoices.show', compact('InvoiceDetails', 'customer','lineTotal'));
     }
 
     /**

@@ -16,7 +16,7 @@ class StockTakesImport implements ToModel,withHeadingRow
     */
     public function model(array $row)
     {
-        $checkProduct=Product::query()->where('product_name',$row['product_name'])->value('quantity');
+        $checkProduct=Product::query()->where('product_code',$row['product_code'])->value('quantity');
         return new StockTake([
             'product_code' => $row['product_code'],
             'product_name' => $row['product_name'],

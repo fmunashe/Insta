@@ -23,6 +23,7 @@ class UserController extends Controller
         } elseif (session('error_message')) {
             Alert::error('error', session('error_message'))->showConfirmButton('Close', '#b92b53');
         }
+        $this->authorize('viewAny',User::class);
         $users = User::all();
         return view('users.index', compact('users'));
     }

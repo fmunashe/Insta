@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Imports\PayRollsImport;
 use App\PayRoll;
+use App\Product;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -17,6 +18,7 @@ class PayRollsController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny',Product::class);
         $pays=PayRoll::query()->orderBy('created_at', 'desc')->paginate(10);
         return view('payRolls.index',compact('pays'));
     }
@@ -28,6 +30,7 @@ class PayRollsController extends Controller
      */
     public function create()
     {
+        $this->authorize('viewAny',Product::class);
         return view('payRolls.create');
     }
 
@@ -39,6 +42,7 @@ class PayRollsController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('viewAny',Product::class);
         $this-> validate($request,[
             'import_file'=>'required'
         ]);
@@ -92,6 +96,7 @@ class PayRollsController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('viewAny',Product::class);
 
         $pay=PayRoll::find($id);
         if($pay->status==0){
@@ -103,11 +108,9 @@ class PayRollsController extends Controller
             Alert::warning('Warning', "not allowed ")->persistent('Dismiss');
             return redirect('/payRolls');
         }
-
-
-
     }
     public function authoriseSalary(PayRoll $salary){
+        $this->authorize('viewAny',Product::class);
         if($salary->status==0){
             $salary->update([
                     'status'=>1,

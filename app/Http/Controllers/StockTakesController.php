@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StockTakeRequest;
 use App\Imports\StockTakesImport;
+use App\Product;
 use App\StockTake;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -23,6 +24,7 @@ class StockTakesController extends Controller
         } elseif (session('error_message')) {
             Alert::error('error', session('error_message'))->showConfirmButton('Close', '#b92b53');
         }
+        $this->authorize('viewAny',Product::class);
         $stocks = StockTake::query()->orderBy('created_at', 'desc')->get();
         return view('stockTake.index', compact('stocks'));
     }
@@ -34,6 +36,7 @@ class StockTakesController extends Controller
      */
     public function create()
     {
+        $this->authorize('viewAny',Product::class);
         return view('stockTake.create');
     }
 
@@ -45,6 +48,7 @@ class StockTakesController extends Controller
      */
     public function store(StockTakeRequest $request)
     {
+        $this->authorize('viewAny',Product::class);
         Excel::import(new StockTakesImport, request()->file('import_file'));
         return redirect()->route('stockTakes')->withSuccessMessage("Stock Sheet Successfully Posted");
     }
@@ -91,6 +95,7 @@ class StockTakesController extends Controller
      */
     public function destroy($stock_count)
     {
+        $this->authorize('viewAny',Product::class);
         StockTake::query()->where('stock_count', $stock_count)->delete();
         return redirect()->route('stockTakes')->withSuccessMessage("Stock Count Successfully Rolled Back");
     }

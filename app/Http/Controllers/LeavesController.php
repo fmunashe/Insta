@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Leave;
+use App\Product;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -20,6 +21,7 @@ class LeavesController extends Controller
         } elseif (session('error_message')) {
             Alert::error('error', session('error_message'))->showConfirmButton('Close', '#b92b53');
         }
+        $this->authorize('viewAny',Product::class);
         $leaves=Leave::query()->paginate('20');
 
         return view('leaves.index',compact('leaves'));
@@ -32,7 +34,7 @@ class LeavesController extends Controller
      */
     public function create()
     {
-
+        $this->authorize('viewAny',Product::class);
         return view('leaves.create');
     }
 
@@ -44,7 +46,7 @@ class LeavesController extends Controller
      */
     public function store(Request $request)
     {
-
+        $this->authorize('viewAny',Product::class);
         $data=$this-> validate($request,[
             'category'=>'required',
             'days'=>'required'
@@ -61,6 +63,7 @@ class LeavesController extends Controller
      */
     public function show($id)
     {
+        $this->authorize('viewAny',Product::class);
         $leave=Leave::query()->find($id);
         return view('leaves.show',compact('leave'));
     }
@@ -73,6 +76,7 @@ class LeavesController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('viewAny',Product::class);
         $leave=Leave::query()->find($id);
         return view('leaves.edit',compact('leave'));
     }
@@ -86,6 +90,7 @@ class LeavesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->authorize('viewAny',Product::class);
         $data=$this-> validate($request,[
             'category'=>'required',
             'days'=>'required'
@@ -103,6 +108,7 @@ class LeavesController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('viewAny',Product::class);
         Leave::query()->where('id',$id)->delete();
         return redirect()->route('leaves')->withSuccessMessage("Leave Removed");
     }

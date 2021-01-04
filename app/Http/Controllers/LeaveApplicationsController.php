@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Leave;
 use App\LeaveApplication;
+use App\Product;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -21,6 +22,7 @@ class LeaveApplicationsController extends Controller
         } elseif (session('error_message')) {
             Alert::error('error', session('error_message'))->showConfirmButton('Close', '#b92b53');
         }
+        $this->authorize('viewAny',Product::class);
         $applications=LeaveApplication::query()->paginate(20);
         return view('apply_leave.index',compact('applications'));
     }

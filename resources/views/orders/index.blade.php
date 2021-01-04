@@ -7,15 +7,17 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card-box">
-                <h4 class="card-title">Purchase Orders<a href="{{route('uploadOrders')}}" class="btn btn-success btn-rounded pull-right"><i class="fa fa-plus"></i> Upload Products</a></h4>
+                <h4 class="card-title">Stock Received<a href="{{route('receiveStock')}}" class="btn btn-success btn-rounded pull-right"><i class="fa fa-plus"></i> Receive Stock</a></h4>
                 <table id="client" class="table table-striped table-hover table-condensed">
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Order Number</th>
                         <th>Date Uploaded</th>
+                        <th>Order Number</th>
+                        <th>Supplier</th>
                         <th>Product Name</th>
                         <th>Quantity</th>
+                        <th>Cost Price</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -23,10 +25,14 @@
                     @foreach($orders as $order)
                         <tr>
                             <td>{{$order->id}}</td>
-                            <td>{{$order->order_number}}</td>
                             <td>{{$order->created_at}}</td>
+                            <td>{{$order->order_number}}</td>
+                            @foreach($order->suppliers as $supplier)
+                                <td>{{$supplier->name}}</td>
+                                @endforeach
                             <td>{{$order->product_name}}</td>
                             <td>{{$order->quantity}}</td>
+                            <td>{{$order->cost_price}}</td>
                             <td>
                                 <div class="dropdown dropdown-action">
                                     <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>

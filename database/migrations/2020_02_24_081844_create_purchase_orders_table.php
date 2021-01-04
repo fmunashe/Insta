@@ -17,7 +17,9 @@ class CreatePurchaseOrdersTable extends Migration
             $table->bigIncrements('id');
             $table->string('order_number');
             $table->string('product_name');
-            $table->string('quantity');
+            $table->string('invoice');
+            $table->double('cost_price');
+            $table->integer('quantity');
             $table->timestamps();
         });
     }

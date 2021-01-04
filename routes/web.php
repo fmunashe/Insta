@@ -75,10 +75,11 @@ Route::put('/updateSale/{sale}','SaleController@update')->name('updateSale');
 Route::get('/deleteSale/{sale}','SaleController@destroy')->name('deleteSale');
 Route::get('/getRate','SaleController@getRate')->name('getRate');
 Route::get('/getUnit','SaleController@getUnit')->name('getUnit');
+Route::get('/showReceipt/{receipt}','SaleController@show')->name('showReceipt');
 //orders
 Route::get('/orders','PurchaseOrdersController@index')->name('orders');
-Route::get('/uploadOrders','PurchaseOrdersController@create')->name('uploadOrders');
-Route::post('/saveOrders','PurchaseOrdersController@store')->name('saveOrders');
+Route::get('/receiveStock','PurchaseOrdersController@create')->name('receiveStock');
+Route::post('/saveStock','PurchaseOrdersController@store')->name('saveStock');
 Route::get('/deleteOrder/{order}','PurchaseOrdersController@destroy')->name('deleteOrder');
 //StockTake
 Route::get('/stockTakes','StockTakesController@index')->name('stockTakes');
@@ -144,3 +145,55 @@ Route::get('/createQuotation','QuotationController@create')->name('createQuotati
 Route::post('/saveQuotation','QuotationController@store')->name('saveQuotation');
 Route::get('/quotations','QuotationController@index')->name('quotations');
 Route::get('/showQuotation/{quotation}','QuotationController@show')->name('showQuotation');
+////Creditors Routes
+//Route::get('creditors','CreditorsController@index')->name('creditors');
+//Route::get('addCreditor','CreditorsController@create')->name('addCreditor');
+//Route::post('saveCreditor','CreditorsController@store')->name('saveCreditor');
+//Route::get('editCreditor/{id}','CreditorsController@edit')->name('editCreditor');
+//Route::put('updateCreditor/{id}','CreditorsController@update')->name('updateCreditor');
+//Route::get('deleteCreditor/{id}','CreditorsController@destroy')->name('deleteCreditor');
+////Requisitions Routes
+//Route::get('/requisitions','RequisitionsController@index')->name('requisitions');
+//Route::get('/addRequisition','RequisitionsController@create')->name('addRequisition');
+//Route::post('/saveRequisition','RequisitionsController@store')->name('saveRequisition');
+//requisition
+Route::get('/requisitions','RequisitionsController@index')->name('requisitions');
+Route::get('/addRequisition','RequisitionsController@create')->name('addRequisition');
+Route::post('/saveRequisition','RequisitionsController@store')->name('saveRequisition');
+Route::get('/editRequisition/{requisition}/','RequisitionsController@edit')->name('editRequisition');
+Route::get('/deleteEmployee/{employee}/','RequisitionsController@destroy')->name('deleteEmployee');
+Route::put('/updateRequisition/{requisition}/','RequisitionsController@update')->name('updateRequisition');
+Route::get('/showEmployee/{employee}/','RequisitionsController@show')->name('showEmployee');
+Route::get('/acceptRequisition/{requisition}/update','RequisitionsController@acceptRequisition')->name('acceptRequisition');
+Route::get('/rejectRequisition/{requisition}/update','RequisitionsController@rejectRequisition')->name('rejectRequisition');
+Route::get('/authorisePayment/{payment}','RequisitionsController@acceptPayment')->name('authorisePayment');
+Route::get('/rejectPayment/{payment}','RequisitionsController@rejectPayment')->name('rejectPayment');
+//Creditors
+Route::get('/creditors','CreditorsController@index')->name('creditors');
+Route::get('/addCreditor','CreditorsController@create')->name('addCreditor');
+Route::post('/saveCreditor','CreditorsController@store')->name('saveCreditor');
+Route::get('/editCreditor/{creditor}/','CreditorsController@edit')->name('editCreditor');
+Route::get('/deleteCreditor/{creditor}','CreditorsController@destroy')->name('deleteCreditor');
+Route::put('/updateCreditor/{creditor}','CreditorsController@update')->name('updateCreditor');
+Route::get('/showEmployee/{creditor}','CreditorsController@show')->name('showCreditor');
+//assets
+Route::get('/assets','AssetsController@index')->name('assets');
+Route::get('/addAsset','AssetsController@create')->name('addAsset');
+Route::post('/saveAsset','AssetsController@store')->name('saveAsset');
+Route::get('/editAsset/{asset}/','AssetsController@edit')->name('editAsset');
+Route::get('/deleteAsset/{asset}','AssetsController@destroy')->name('deleteAsset');
+//Profit and Loss Routes
+Route::get('/profitAndLoss','ProfitAndLossController@index')->name('profitAndLoss');
+Route::post('/searchProfitAndLoss','ProfitAndLossController@search')->name('searchProfitAndLoss');
+Route::get('/mySales','SaleController@mySales')->name('mySales');
+Route::get('/createRevenue','RevenueController@create')->name('createRevenue');
+Route::post('/postRevenue','RevenueController@store')->name('postRevenue');
+//Supplier Routes
+Route::get('/suppliers','SupplierController@index')->name('suppliers');
+Route::get('/createSupplier','SupplierController@create')->name('createSupplier');
+Route::post('/saveSupplier','SupplierController@store')->name('saveSupplier');
+Route::get('/deleteSupplier/{supplier}','SupplierController@destroy')->name('deleteSupplier');
+//Trial Balance
+Route::get('/trialBalance','TrialBalanceController@index')->name('trialBalance');
+Route::post('/searchTrialBalance','TrialBalanceController@search')->name('searchTrialBalance');
+Route::get('/showRevenue/{id}','TrialBalanceController@show')->name('showRevenue');

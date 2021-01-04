@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Position;
+use App\Product;
 use App\Salary;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -21,6 +22,7 @@ class PositionsController extends Controller
         } elseif (session('error_message')) {
             Alert::error('error', session('error_message'))->showConfirmButton('Close', '#b92b53');
         }
+        $this->authorize('viewAny',Product::class);
         $positions=Position::query()->paginate('20');
 
         return view('positions.index',compact('positions'));
@@ -33,6 +35,7 @@ class PositionsController extends Controller
      */
     public function create()
     {
+        $this->authorize('viewAny',Product::class);
         $grades=Salary::all();
         return view('positions.create',compact('grades'));
     }
@@ -45,7 +48,7 @@ class PositionsController extends Controller
      */
     public function store(Request $request)
     {
-
+        $this->authorize('viewAny',Product::class);
         $data=$this-> validate($request,[
             'name'=>'required',
             'salary_id'=>'required'
@@ -62,6 +65,7 @@ class PositionsController extends Controller
      */
     public function show($id)
     {
+        $this->authorize('viewAny',Product::class);
         $positions=Position::query()->find($id);
         return view('positions.show',compact('positions'));
     }
@@ -74,6 +78,7 @@ class PositionsController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('viewAny',Product::class);
         $position=Position::query()->find($id);
         $grades=Salary::all();
         return view('positions.edit',compact('position','grades'));
@@ -88,6 +93,7 @@ class PositionsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->authorize('viewAny',Product::class);
         $data=$this-> validate($request,[
             'name'=>'required',
             'salary_id'=>'required'
@@ -105,6 +111,7 @@ class PositionsController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('viewAny',Product::class);
         Position::query()->where('id',$id)->delete();
         return redirect()->route('employeePositions')->withSuccessMessage("Employee Position Removed");
     }

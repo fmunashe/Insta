@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Currency;
 use App\ExchangeRate;
 use App\Http\Requests\ExchangeRateRequest;
+use App\Product;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -23,7 +24,7 @@ class ExchangeRateController extends Controller
         elseif(session('error_message')){
             Alert::error('error', session('error_message'))->showConfirmButton('Close', '#b92b53');
         }
-
+        $this->authorize('viewAny',Product::class);
         $rates=ExchangeRate::with('currency')->get();
         return view('rates.index',compact('rates'));
     }
@@ -35,6 +36,7 @@ class ExchangeRateController extends Controller
      */
     public function create()
     {
+        $this->authorize('viewAny',Product::class);
         $currencies=Currency::all();
         return view('rates.create',compact('currencies'));
     }
@@ -47,6 +49,7 @@ class ExchangeRateController extends Controller
      */
     public function store(ExchangeRateRequest $request)
     {
+        $this->authorize('viewAny',Product::class);
         ExchangeRate::query()->create([
             'currency_code'=>$request->input('currency_code'),
             'rate'=>$request->input('rate')
@@ -73,6 +76,7 @@ class ExchangeRateController extends Controller
      */
     public function edit(ExchangeRate $exchangeRate)
     {
+        $this->authorize('viewAny',Product::class);
         return view('rates.edit',compact('exchangeRate'));
     }
 
@@ -85,6 +89,7 @@ class ExchangeRateController extends Controller
      */
     public function update(Request $request, ExchangeRate $exchangeRate)
     {
+        $this->authorize('viewAny',Product::class);
         $exchangeRate->update([
           'rate'=>$request->input('rate')
         ]);
@@ -99,6 +104,7 @@ class ExchangeRateController extends Controller
      */
     public function destroy(ExchangeRate $exchangeRate)
     {
+        $this->authorize('viewAny',Product::class);
         try{
             $exchangeRate->delete();
             return redirect()->route('rates')->withSuccessMessage("Rate Successfully removed from the system");

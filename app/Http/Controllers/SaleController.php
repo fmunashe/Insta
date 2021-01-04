@@ -7,7 +7,7 @@ use App\ExchangeRate;
 use App\Product;
 use App\Sale;
 use App\SaleLines;
-use charlieuki\ReceiptPrinter\ReceiptPrinter;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -25,8 +25,9 @@ class SaleController extends Controller
         } elseif (session('error_message')) {
             Alert::error('error', session('error_message'))->showConfirmButton('Close', '#b92b53');
         }
-        $sales = Sale::query()->with('saleLines')->get();
-        return view('sales.index', compact('sales'));
+        $this->authorize('viewAny',Product::class);
+        $sales=Sale::query()->with('saleLines')->get();
+        return view('sales.index',compact('sales'));
     }
 
     /**
@@ -73,69 +74,42 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
-        $currency = Currency::query()->where('id', $request->rate['currency_code'])->first();
+        $tot=0;
+        for ($i = 0; $i < count($request->ItemDescription); $i++) {
+            $product = Product::query()->where('product_code',$request->ItemDescription[$i])->first();
+            if($request->ItemQuantity[$i]>$product->quantity){
+                return redirect()->route('createSale')->withStatus("Quantity of ".$request->ItemQuantity[$i]." for item ".$product->product_name." is greater than remaining quantity in stock of ".$product->quantity);
+            }
+            else{
+                $tot =$tot+ ($product->price * $request->ItemQuantity[$i]);
+            }
+        }
         $sale = Sale::query()->create([
-            'amount' => $request->total,
-            'currency' => $currency->currency_code,
-            'rate' => $request->rate['rate'],
+            'amount' => $tot*$request->input('rate'),
+            'currency' => $request->input('currency'),
+            'rate' => $request->input('rate'),
             'sold_by' => auth()->user()->name,
         ]);
         if ($sale) {
-            for ($i = 0; $i < count($request->products); $i++) {
-                $product = $request->products[$i];
+            for ($i = 0; $i < count($request->ItemDescription); $i++) {
+                $product = Product::query()->where('product_code',$request->ItemDescription[$i])->first();
                 SaleLines::query()->create([
                     'sale_id' => $sale->id,
-                    'item' => $product['product_name'],
-                    'quantity' => $product['number'],
-                    'price' => $product['price'],
-                    'unit' => $product['unit'],
-                    'amount' => ($product['number'] * $product['price'])
+                    'item' => $product->product_name,
+                    'quantity' => $request->ItemQuantity[$i],
+                    'price' => $product->price,
+                    'unit' => $product->unit,
+                    'amount' => ($product->price * $request->ItemQuantity[$i])
                 ]);
                 //decrement product item quantity by the sale quantity
-                $getProduct = Product::query()->where('product_name', $product['product_name'])->first();
-                Product::query()->where('product_name', $product['product_name'])->update([
-                    'quantity' => $getProduct->quantity - $product['number'],
+                $quant=$product->quantity;
+                $product->update([
+                'quantity'=>$quant-$request->ItemQuantity[$i]
                 ]);
             }
-            // Set params
-            $mid = '123123456';
-            $store_name = 'Insta-Visionary Enterprises';
-            $store_address = '121 Fife Street Bulawayo';
-            $store_phone = '+263783700587/+263772842534';
-            $store_email = 'insta@gmail.com';
-            $store_website = 'instavisionary.com';
-            $tax_percentage = 2;
-            $transaction_id = 'TXN-'.$sale->id;
-            // Init printer
-            $printer = new ReceiptPrinter();
-            $printer->init(
-                config('receiptprinter.connector_type'),
-                config('receiptprinter.connector_descriptor')
-            );
-            // Set store info
-            $printer->setStore($mid, $store_name, $store_address, $store_phone, $store_email, $store_website);
-            //Add dotted line
-            $printer->printDashedLine();
-            // Add items
-            for ($i = 0; $i < count($request->products); $i++) {
-                $product = $request->products[$i];
-                $printer->addItem($product['product_name'],$product['number'],$product['price']);
-            }
-            // Set tax
-            $printer->setTax($tax_percentage);
-            // Calculate total
-            $printer->calculateSubTotal();
-            $printer->calculateGrandTotal();
-            // Set transaction ID
-            $printer->setTransactionID($transaction_id);
-            // Set qr code
-            $printer->setQRcode([
-                'tid' => $transaction_id,
-            ]);
-            // Print receipt
-//            $printer->printReceipt();
-
-            return redirect()->route('createSale')->withSuccessMessage("Sale Successfully recorded");
+            $SaleDetails = Sale::query()->where('id', $sale->id)->with('saleLines')->first();
+            $lineTotal=SaleLines::query()->where('sale_id',$sale->id)->sum('amount');
+            return view('sales.show', compact('SaleDetails', 'lineTotal'));
         }
     }
 
@@ -145,11 +119,18 @@ class SaleController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($receipt)
     {
-
+        $SaleDetails = Sale::query()->where('id', $receipt)->with('saleLines')->first();
+        $lineTotal=SaleLines::query()->where('sale_id',$receipt)->sum('amount');
+        return view('sales.show', compact('SaleDetails','lineTotal'));
     }
 
+
+    public function mySales(){
+        $sales=Sale::query()->where('sold_by',auth()->user()->name)->with('saleLines')->get();
+        return view('sales.individualSales',compact('sales'));
+    }
     /**
      * Show the form for editing the specified resource.
      *

@@ -6,6 +6,7 @@ use App\Currency;
 use App\Customer;
 use App\Http\Requests\CustomerRequest;
 use App\Invoice;
+use App\Product;
 use App\Quotation;
 use App\QuotationLines;
 use Illuminate\Http\Request;
@@ -37,7 +38,8 @@ class QuotationController extends Controller
     public function create()
     {
         $currencies = Currency::with('rate')->get();
-        return view('quotation.createQuotation', compact('currencies'));
+        $products=Product::all();
+        return view('quotation.createQuotation', compact('currencies','products'));
     }
 
     /**
@@ -78,7 +80,8 @@ class QuotationController extends Controller
             ]);
         }
         $QuotationDetails = Quotation::query()->where('id', $quotation->id)->with('quotationLines')->first();
-        return view('quotation.show', compact('QuotationDetails', 'customer'));
+        $lineTotal=QuotationLines::query()->where('quotation_id',$quotation->id)->sum('line_total');
+        return view('quotation.show', compact('QuotationDetails', 'customer','lineTotal'));
     }
 
     /**
@@ -91,7 +94,8 @@ class QuotationController extends Controller
     {
         $QuotationDetails = Quotation::query()->where('id', $quotation)->with('quotationLines')->first();
         $customer = Customer::query()->where('id', $QuotationDetails->customer_id)->first();
-        return view('quotation.show', compact('QuotationDetails', 'customer'));
+        $lineTotal=QuotationLines::query()->where('quotation_id',$quotation)->sum('line_total');
+        return view('quotation.show', compact('QuotationDetails', 'customer','lineTotal'));
     }
 
     /**
